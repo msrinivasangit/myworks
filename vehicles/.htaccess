@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+
+   Options +FollowSymLinks
+
+   	RewriteEngine on
+
+   	#Rewrite Rule For Requirement 2
+   	RewriteCond %{REQUEST_URI} ^/vehicles/$
+	RewriteRule ^(.*)$ /vehicles/controller/api_controller.php?requirement=two [R=308]
+	
+   	RewriteCond %{REQUEST_FILENAME} !-f
+
+   	RewriteCond %{REQUEST_FILENAME} !-d
+
+   	#Rewrite Rule For Requirement 3
+   	RewriteCond %{QUERY_STRING} ^withRating=(.*)$
+	RewriteRule ^(\d+)/(.*?)/(.*?)$ /vehicles/controller/api_controller.php?year=$1&make=$2&model=$3&requirement=three&withRating=%1 [L]
+
+   	#Rewrite Rule For Requirement 1
+   	RewriteRule ^(\d+)/(.*?)/(.*?)$ /vehicles/controller/api_controller.php?year=$1&make=$2&model=$3&requirement=one [L]
+
+</IfModule>
